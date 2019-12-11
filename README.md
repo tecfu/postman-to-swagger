@@ -1,6 +1,6 @@
 # Postman to Swagger
 
-Converts Postman 2.1 to Swagger 2.0
+Converts [Postman 2.1](https://schema.getpostman.com/json/collection/latest/docs/index.html) to [Swagger 2.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)
 
 ## Introduction
 
@@ -8,8 +8,13 @@ I looked all over the internet for this tool, because I didn't want to have to b
 
 To get around that, I've created some configuration options and implemented defaults where necessary.
 
-This project intends to get you a valid but basic Swagger.yaml from your Postman collection. That way you can generate basic documentation. 
-ft
+This project intends to get you a valid but basic Swagger.yaml from your Postman collection. That way you can generate basic interoperability.
+
+## Installation
+
+```sh
+npm install tecfu/postman-to-swagger
+```
 
 ## Example
 

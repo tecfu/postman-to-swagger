@@ -1,0 +1,250 @@
+openapi: 3.0.0
+info:
+  title: brainbi
+  description: >-
+    Welcome to the official API of the brainbi platform. Using this API you can
+    freely integrate our analytics platform with any other solution. 
+
+    Please refer to the following documentation and in case of any issues, please contact us at service@brainbi.net.
+
+
+    Please note: for this API you will use your email and password from the brainbi.net platform to gather a Bearer Token for any API calls (use Login and get token). Once you are finished with your calls, please do a logout to remove your token and keep your account safe (use logout).
+  version: 1.0.0
+paths:
+  /api/rule:
+    get:
+      summary: Rules
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /:
+    get:
+      summary: OrderLines {id}
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    post:
+      summary: OrderLine
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    put:
+      summary: OrderLines
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+    delete:
+      summary: OrderLines
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: OK
+  /api/rule/ruleData/1:
+    get:
+      summary: Rule Data
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/rule/ruleData/1/latest:
+    get:
+      summary: Rule Data Latest
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/products:
+    get:
+      summary: Products
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/products/1137:
+    delete:
+      summary: Products
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/customers:
+    get:
+      summary: Customers
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/orders:
+    get:
+      summary: Orders
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+  /api/orders/1137:
+    delete:
+      summary: Orders
+      parameters:
+        - in: header
+          name: Accept
+          required: true
+          schema:
+            type: string
+        - in: header
+          name: Authorization
+          required: true
+          schema:
+            type: string
+        - in: query
+          name: ""
+          schema:
+            type: string
+          required: true
+      responses:
+        "200":
+          description: OK
+

@@ -1,22 +1,31 @@
 {
   "name": "postman-to-swagger",
-  "version": "0.0.1",
-  "description": "Convert Postman 2.1 collections to Swagger/OpenAPI 2.0",
+  "version": "0.1.0",
+  "description": "Convert Postman 2.1 collections to Swagger 2.0 or OpenAPI 3.0",
   "main": "src/index.js",
+  "bin": {},
   "directories": {
     "test": "test"
   },
   "dependencies": {},
-  "devDependencies": {},
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "colors": "^1.4.0",
+    "diff": "^4.0.2",
+    "mocha": "^7.2.0",
+    "yaml": "^1.10.0"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "npx mocha",
+    "tests:save": "node test/mocha.conf.js save",
+    "tests:display": "node ./test/mocha.conf.js display"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tecfu/postman-to-swagger.git"
   },
   "author": "tecfu",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/tecfu/postman-to-swagger/issues"
   },

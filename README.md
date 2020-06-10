@@ -1,14 +1,19 @@
 # Postman to Swagger
 
-Converts [Postman 2.1](https://schema.getpostman.com/json/collection/latest/docs/index.html) to [Swagger 2.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md)
+This project intends to output a valid `swagger.yaml` or `openapi.yaml` file from a Postman collection input.
 
-## Introduction
+You can convert:
 
-I looked all over the internet for this tool, because I didn't want to have to build it. It didn't exist, or was broken for a reason. Postman schema doesn't convert well to Swagger/OpenAPI. There's a lot of data missing.
+| INPUT | OUTPUT |
+|---|---|
+| [Postman 2.1](https://schema.getpostman.com/json/collection/latest/docs/index.html) (`PostmanCollection.json`) | [Swagger 2.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md) (`swagger.yaml`) <br/><br/>[OpenAPI 3.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md) (`openapi.yaml`)|
 
-To get around that, I've created some configuration options and implemented defaults where necessary.
 
-This project intends to get you a valid but basic Swagger.yaml from your Postman collection. That way you can generate basic interoperability.
+> Please Note:
+
+Postman schema doesn't quite match up 1-to-1 against Swagger/OpenAPI schema.
+So some target spec defaults are automatically implemented when absent in the source spec.
+
 
 ## Installation
 
@@ -34,7 +39,7 @@ let output = yaml.safeDump(swaggerJson)
 
 // Save to file
 fs.writeFileSync(
-  'Swagger.yaml',
+  'swagger.yaml',
   output,
   'utf8'
 )
@@ -42,18 +47,20 @@ fs.writeFileSync(
 
 ## Defaults
 
+
 ```js
 const defaults = {
   source_spec: "postman2.1",
-  target_spec: "swagger2.0",
+  target_spec: "openapi3.0",
   require_all: ["headers", "body", "query", "path"],
   omit: {
     headers: ["Content-Type", "X-Requested-With"]
   },
   info: {},
-  host: null,
-  basepath: null,
-  schemes: null,
+  host: null,      // applies only to swagger2.0 output
+  basepath: null,  // applies only to swagger2.0 output
+  schemes: null,   // applies only to swagger2.0 output
+  servers: null,   // applies only to openapi3.0 output
   responses: {
     200: {
       description: "OK"
@@ -64,4 +71,4 @@ const defaults = {
 
 ## License
 
-MIT
+[MIT](LICENSE)

@@ -2,8 +2,8 @@ module.exports = (collection, config) => {
 
   const output = {}
 
-  // swagger version
-  output.swagger = "2.0"
+  // openapi version
+  output.openapi = "3.0.0"
 
   // info object
   output.info = {}
@@ -12,7 +12,7 @@ module.exports = (collection, config) => {
   output.info.description = (config.info && config.info.description) 
     ? config.info.description : (collection.info.description || "No description")
   output.info.version = (config.info && config.info.version) 
-    ? config.info.version : process.env.npm_package_version
+    ? config.info.version : "1.0.0"
   
   // host
   // output.host = (config.host) ? config.host : mostPopularHost(collection)
@@ -24,21 +24,24 @@ module.exports = (collection, config) => {
   // schemes
   output.schemes = (config.schemes) ? config.schemes : ['https']
 
-  // consumes
-  if (config.consumes) {
-    output.consumes = config.consumes
-  }
-
-  // produces
-  if (config.produces) {
-    output.produces = config.produces
-  }
-
   // paths
   output.paths = getPaths(collection, config)
 
   return output
 }
+
+
+//const mostPopularHost = (collection) => {
+//  // get all hosts as array
+//  let paths = collection.item.map(object => object.item)
+//  return _.head(_(paths)
+//    .flatten()
+//    .map( path => path.request.url.host[0]) 
+//    .countBy()
+//    .entries()
+//    .maxBy(_.last))
+//}
+
 
 const getPaths = (collection, config) => {
   let result = {}
@@ -121,7 +124,7 @@ const processReqBody = (body, config) => {
 
   result.in = "body"
   result.name = (parsedBodyKeys.length === 1) ? parsedBodyKeys[0] : "body"
-  result.schema = bodyItemToSwagger(parsedBody, config)
+  result.schema = bodyItemToOpenAPI(parsedBody, config)
   if (config.require_all.indexOf("body") !== -1) result.required = true
   return result
 }
@@ -166,7 +169,7 @@ const processReqPath = (url, config) => {
 }
 
 
-const bodyItemToSwagger = (value, config) => {
+const bodyItemToOpenAPI = (value, config) => {
   let result
   let type = (Array.isArray(value)) ? "array" : typeof value
 
@@ -187,7 +190,7 @@ const bodyItemToSwagger = (value, config) => {
       }
 
       Object.entries(value)
-        .forEach(arr => {result.properties[arr[0]] = bodyItemToSwagger(arr[1], config)})
+        .forEach(arr => {result.properties[arr[0]] = bodyItemToOpenAPI(arr[1], config)})
       break
 
     case("string" || "number"):

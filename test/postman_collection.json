@@ -1,0 +1,1449 @@
+{
+  "info": {
+    "_postman_id": "6a9d2dc5-3f7e-47f5-ae7d-782740625908",
+    "name": "brainbi",
+    "description": "Welcome to the official API of the brainbi platform. Using this API you can freely integrate our analytics platform with any other solution. \nPlease refer to the following documentation and in case of any issues, please contact us at service@brainbi.net.\n\nPlease note: for this API you will use your email and password from the brainbi.net platform to gather a Bearer Token for any API calls (use Login and get token). Once you are finished with your calls, please do a logout to remove your token and keep your account safe (use logout).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Pricing Rules",
+      "item": [
+        {
+          "name": "Rules",
+          "_postman_id": "1afb9d76-5b43-422a-8348-bc3d43c5cdb3",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/rule",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "rule"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "type": "text",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists all pricing rules that are currently saved in you account."
+          },
+          "response": []
+        },
+        {
+          "name": "Rule {id}",
+          "_postman_id": "57a1e981-38a3-4734-8868-d6665a6f6086",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{server}}/api/rule/1",
+            "description": "This resource returns a specific rule {id}. Here the ID is 1, change it to the id you need to get."
+          },
+          "response": []
+        },
+        {
+          "name": "Rule",
+          "_postman_id": "32a46d57-7963-4bd9-89bc-cd0e21747593",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "product_id",
+                  "value": " 89311",
+                  "type": "text",
+                  "description": "The ID of the product you want this monitor to be linked to. Can be left empty if no link to a product is needed.  This needs to be the ID of brainbi and not your internal id (store_remote_id) (optional)",
+                  "disabled": true
+                },
+                {
+                  "key": "name",
+                  "value": "Test Bob 89311",
+                  "type": "text",
+                  "description": "A recognisable name.",
+                  "disabled": true
+                },
+                {
+                  "key": "scrape_url",
+                  "value": "https://www.zalando.de/polo-ralph-lauren-t-shirt-basic-dark-blue-po222o085-k11.html",
+                  "type": "text",
+                  "description": "The URL of the product",
+                  "disabled": true
+                },
+                {
+                  "key": "type",
+                  "value": "AI",
+                  "description": "Set to \"AI\" if this is ruke should be handled by our AI. Otherwise leave blank and provide the DOM-element with the scrape_selector. (optional)",
+                  "type": "text",
+                  "disabled": true
+                },
+                {
+                  "key": "scrape_selector",
+                  "value": "",
+                  "type": "text",
+                  "description": "The DOM-Selector for the price (you need to set this if you leave type blank).",
+                  "disabled": true
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/rule",
+            "description": "To update a product, please use the listed attributes listed underneath. "
+          },
+          "response": []
+        },
+        {
+          "name": "Rule Data",
+          "_postman_id": "487160ae-e8e5-46b6-9b4f-c9c862eaa4b4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/rule/ruleData/1",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "rule",
+                "ruleData",
+                "1"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "type": "text",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists all data that wa saved for pricing rules."
+          },
+          "response": []
+        },
+        {
+          "name": "Rule Data Latest",
+          "_postman_id": "c3a7a0f3-a561-471f-81cf-1690dbefcf52",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "type": "text",
+                "value": "Bearer {{token}}"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/rule/ruleData/1/latest",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "rule",
+                "ruleData",
+                "1",
+                "latest"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "type": "text",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists only the latest data point that wa saved for a pricing rule."
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "d67b3597-29f2-4245-849f-4a3f08282859"
+    },
+    {
+      "name": "Products",
+      "item": [
+        {
+          "name": "Products",
+          "_postman_id": "fa18e494-f09f-40e3-9dd6-44fe64013890",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/products",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "products"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "type": "text",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists all products that are currently saved in you account."
+          },
+          "response": []
+        },
+        {
+          "name": "Products {id}",
+          "_postman_id": "e6bfd65b-82f1-40f1-bf74-4ba9fe81132c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqn1"
+              }
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{server}}/api/products/1",
+            "description": "This resource returns a specific product {id}. Here the ID is 1, change it to the id you need to get."
+          },
+          "response": []
+        },
+        {
+          "name": "Products",
+          "_postman_id": "c22830a7-5e47-4a58-9ebe-ed9023fd2585",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "status",
+                  "value": "new",
+                  "description": "The status of your product as text.",
+                  "type": "text"
+                },
+                {
+                  "key": "store_remote_id",
+                  "value": "5678",
+                  "description": "Your internal ID of this product. Mostly the ID from your shop or ERP system.",
+                  "type": "text"
+                },
+                {
+                  "key": "store_remote_variant_id",
+                  "value": "2",
+                  "description": "Your ID if there are more than one variant of the product.",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Changable Phone Cover",
+                  "type": "text"
+                },
+                {
+                  "key": "vendor",
+                  "value": "Some Brand",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "12.99",
+                  "description": "Your selling price.",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_price",
+                  "value": "9.99",
+                  "description": "The cost that you pay.",
+                  "type": "text"
+                },
+                {
+                  "key": "shipping",
+                  "value": "1.99",
+                  "description": "Shipping cost",
+                  "type": "text"
+                },
+                {
+                  "key": "url",
+                  "value": "https://www.yourshop.de/5678",
+                  "type": "text"
+                },
+                {
+                  "key": "ean_upc",
+                  "value": "12345678910",
+                  "type": "text"
+                },
+                {
+                  "key": "category_id",
+                  "value": "11",
+                  "type": "text"
+                },
+                {
+                  "key": "category_name",
+                  "value": "Acessories",
+                  "type": "text"
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/products",
+            "description": "To update a product, please use the listed attributes listed underneath. "
+          },
+          "response": []
+        },
+        {
+          "name": "Products",
+          "_postman_id": "9bbebe91-a132-43b4-bc71-170f23b30392",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "status",
+                  "value": "new",
+                  "description": "The status of your product as text.",
+                  "type": "text"
+                },
+                {
+                  "key": "store_remote_id",
+                  "value": "5678",
+                  "description": "Your internal ID of this product. Mostly the ID from your shop or ERP system.",
+                  "type": "text"
+                },
+                {
+                  "key": "store_remote_variant_id",
+                  "value": "2",
+                  "description": "Your ID if there are more than one variant of the product.",
+                  "type": "text"
+                },
+                {
+                  "key": "name",
+                  "value": "Changable Phone Cover",
+                  "type": "text"
+                },
+                {
+                  "key": "vendor",
+                  "value": "Some Brand",
+                  "type": "text"
+                },
+                {
+                  "key": "price",
+                  "value": "12.99",
+                  "description": "Your selling price.",
+                  "type": "text"
+                },
+                {
+                  "key": "cost_price",
+                  "value": "9.99",
+                  "description": "The cost that you pay.",
+                  "type": "text"
+                },
+                {
+                  "key": "shipping",
+                  "value": "1.99",
+                  "description": "Shipping cost",
+                  "type": "text"
+                },
+                {
+                  "key": "url",
+                  "value": "https://www.yourshop.de/5678",
+                  "type": "text"
+                },
+                {
+                  "key": "ean_upc",
+                  "value": "12345678910",
+                  "type": "text"
+                },
+                {
+                  "key": "category_id",
+                  "value": "11",
+                  "type": "text"
+                },
+                {
+                  "key": "category_name",
+                  "value": "Acessories",
+                  "type": "text"
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/products",
+            "description": "To update a product, please use the listed attributes listed underneath. "
+          },
+          "response": []
+        },
+        {
+          "name": "Products",
+          "_postman_id": "c1cd509c-864e-4e3b-b48b-b19c70d8ec88",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": {
+              "raw": "{{server}}/api/products/1137",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "products",
+                "1137"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "1982b7fe-d592-4141-ad3b-34a710da2395"
+    },
+    {
+      "name": "Customers",
+      "item": [
+        {
+          "name": "Customers",
+          "_postman_id": "3132fb8a-2655-43f0-bfbc-77c260674ab4",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/customers",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "customers"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "type": "text",
+                  "value": "",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists all cusomters that are currently saved in your account."
+          },
+          "response": []
+        },
+        {
+          "name": "Customers {id}",
+          "_postman_id": "75fa8d4e-d755-4677-8f7d-d1afd7738db5",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{server}}/api/customers/1",
+            "description": "This resource returns a specific customer {id}. Here the ID is 1, change it to the id you need to get."
+          },
+          "response": []
+        },
+        {
+          "name": "Customers",
+          "_postman_id": "3c874448-83ab-4409-860d-b08ad39c1b13",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "key": "store_remote_id",
+                  "type": "text",
+                  "value": "zz67891"
+                },
+                {
+                  "key": "status",
+                  "type": "text",
+                  "value": "new"
+                },
+                {
+                  "key": "currency",
+                  "type": "text",
+                  "value": "EUR"
+                },
+                {
+                  "key": "country",
+                  "type": "text",
+                  "value": "Germany"
+                },
+                {
+                  "key": "sub_total",
+                  "type": "text",
+                  "value": "11,99"
+                },
+                {
+                  "key": "shipping",
+                  "type": "text",
+                  "value": "1"
+                },
+                {
+                  "key": "total",
+                  "type": "text",
+                  "value": "12,99"
+                },
+                {
+                  "key": "created_at",
+                  "type": "text",
+                  "value": ""
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/customers",
+            "description": "To update a customer, please use the listed attributes listed underneath.  "
+          },
+          "response": []
+        },
+        {
+          "name": "Customers",
+          "_postman_id": "25ff60e8-1411-4540-b3d1-ffdff6739706",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "key": "store_remote_id",
+                  "type": "text",
+                  "value": "zz67891"
+                },
+                {
+                  "key": "status",
+                  "type": "text",
+                  "value": "delivered"
+                },
+                {
+                  "key": "currency",
+                  "type": "text",
+                  "value": "EUR"
+                },
+                {
+                  "key": "country",
+                  "type": "text",
+                  "value": "Germany"
+                },
+                {
+                  "key": "sub_total",
+                  "type": "text",
+                  "value": "11,99"
+                },
+                {
+                  "key": "shipping",
+                  "type": "text",
+                  "value": "1"
+                },
+                {
+                  "key": "total",
+                  "type": "text",
+                  "value": "12,99"
+                },
+                {
+                  "key": "created_at",
+                  "type": "text",
+                  "value": ""
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/customers/1137"
+          },
+          "response": []
+        },
+        {
+          "name": "Customers",
+          "_postman_id": "e935d8f8-9a89-4662-b911-c2c86385676c",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/customers/1137"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "24f24a2c-2d26-41a5-9e39-68216b316935"
+    },
+    {
+      "name": "Orders",
+      "item": [
+        {
+          "name": "Orders",
+          "_postman_id": "99c7f406-0c3a-4e73-bf71-155e1ae59a63",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{server}}/api/orders",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "orders"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            },
+            "description": "This resource lists all orders that are currently saved in your account."
+          },
+          "response": []
+        },
+        {
+          "name": "Orders {id}",
+          "_postman_id": "6d2a22ab-d67a-49cc-9fce-82f16b97fec6",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqn1"
+              }
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{server}}/api/orders/12",
+            "description": "This resource returns a specific order {id}. Here the ID is 1, change it to the id you need to get."
+          },
+          "response": []
+        },
+        {
+          "name": "Orders",
+          "_postman_id": "6dec71ab-5a64-4f92-a969-3ed029e43db0",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqn1"
+              }
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "store_remote_id",
+                  "value": "zz67891",
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "new",
+                  "type": "text"
+                },
+                {
+                  "key": "currency",
+                  "value": "EUR",
+                  "type": "text"
+                },
+                {
+                  "key": "country",
+                  "value": "Germany",
+                  "type": "text"
+                },
+                {
+                  "key": "sub_total",
+                  "value": "11,99",
+                  "type": "text"
+                },
+                {
+                  "key": "shipping",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "total",
+                  "value": "12,99",
+                  "type": "text"
+                },
+                {
+                  "key": "created_at",
+                  "value": "",
+                  "type": "text"
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/orders",
+            "description": "To update a order, please use the listed attributes listed underneath.  "
+          },
+          "response": []
+        },
+        {
+          "name": "Orders",
+          "_postman_id": "237e9d6d-6779-4047-a1ac-86b544776e90",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "store_remote_id",
+                  "value": "zz67891",
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "type": "text"
+                },
+                {
+                  "key": "status",
+                  "value": "delivered",
+                  "type": "text"
+                },
+                {
+                  "key": "currency",
+                  "value": "EUR",
+                  "type": "text"
+                },
+                {
+                  "key": "country",
+                  "value": "Germany",
+                  "type": "text"
+                },
+                {
+                  "key": "sub_total",
+                  "value": "11,99",
+                  "type": "text"
+                },
+                {
+                  "key": "shipping",
+                  "value": "1",
+                  "type": "text"
+                },
+                {
+                  "key": "total",
+                  "value": "12,99",
+                  "type": "text"
+                },
+                {
+                  "key": "created_at",
+                  "value": "",
+                  "type": "text"
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/orders/1137"
+          },
+          "response": []
+        },
+        {
+          "name": "Orders",
+          "_postman_id": "607b2251-b66f-4ed4-ad32-bf901b8c65cf",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": {
+              "raw": "{{server}}/api/orders/1137",
+              "host": [
+                "{{server}}"
+              ],
+              "path": [
+                "api",
+                "orders",
+                "1137"
+              ],
+              "query": [
+                {
+                  "key": "",
+                  "value": "",
+                  "type": "text",
+                  "disabled": true
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "42af795e-8af9-43f7-bfd1-50522f3146c0"
+    },
+    {
+      "name": "OrderLines",
+      "item": [
+        {
+          "name": "OrderLines",
+          "_postman_id": "21d42020-a660-49c0-89f7-682bacb1e36e",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqn1"
+              }
+            },
+            "method": "GET",
+            "header": [
+              {
+                "warning": "Key contains invalid characters.",
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": "{{server}}/api/orderlines",
+            "description": "This resource lists all order lines that are currently saved in your account."
+          },
+          "response": []
+        },
+        {
+          "name": "OrderLines {id}",
+          "_postman_id": "c5c3b196-5a7b-4005-94f5-6e1bbbfd5246",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "url": "{{server}}/api/orderlines/123",
+            "description": "This resource returns a specific order line {id}. Here the ID is 1, change it to the id you need to get."
+          },
+          "response": []
+        },
+        {
+          "name": "OrderLine",
+          "_postman_id": "1a8eb522-c18b-4662-81ea-55b10d5c8454",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "type": "text",
+                "value": "application/json"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "key": "store_remote_id",
+                  "type": "text",
+                  "value": "zz67891"
+                },
+                {
+                  "key": "status",
+                  "type": "text",
+                  "value": "new"
+                },
+                {
+                  "key": "currency",
+                  "type": "text",
+                  "value": "EUR"
+                },
+                {
+                  "key": "country",
+                  "type": "text",
+                  "value": "Germany"
+                },
+                {
+                  "key": "sub_total",
+                  "type": "text",
+                  "value": "11,99"
+                },
+                {
+                  "key": "shipping",
+                  "type": "text",
+                  "value": "1"
+                },
+                {
+                  "key": "total",
+                  "type": "text",
+                  "value": "12,99"
+                },
+                {
+                  "key": "created_at",
+                  "type": "text",
+                  "value": ""
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/orderlines",
+            "description": "To update a order line, please use the listed attributes listed underneath.  "
+          },
+          "response": []
+        },
+        {
+          "name": "OrderLines",
+          "_postman_id": "b3a72e04-7982-4d02-92fc-6a83441450bb",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": {
+                "token": "Jll7q0BSijLOrzaOSm5Dr5hW9cJRZAJKOzvDlxjKCXepwAeZ7JR6YP5zQqn1"
+              }
+            },
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "description": "This is your internal id of this order. You need to provide this, so you can later match your orders wit our analytics.",
+                  "key": "store_remote_id",
+                  "type": "text",
+                  "value": "zz67891"
+                },
+                {
+                  "key": "status",
+                  "type": "text",
+                  "value": "delivered"
+                },
+                {
+                  "key": "currency",
+                  "type": "text",
+                  "value": "EUR"
+                },
+                {
+                  "key": "country",
+                  "type": "text",
+                  "value": "Germany"
+                },
+                {
+                  "key": "sub_total",
+                  "type": "text",
+                  "value": "11,99"
+                },
+                {
+                  "key": "shipping",
+                  "type": "text",
+                  "value": "1"
+                },
+                {
+                  "key": "total",
+                  "type": "text",
+                  "value": "12,99"
+                },
+                {
+                  "key": "created_at",
+                  "type": "text",
+                  "value": ""
+                }
+              ],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/orderlines/1137"
+          },
+          "response": []
+        },
+        {
+          "name": "OrderLines",
+          "_postman_id": "37acc425-b8cf-4569-b707-78142a9a819a",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "auth": {
+              "type": "noauth"
+            },
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{token}}",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "formdata",
+              "formdata": [],
+              "options": {
+                "formdata": {}
+              }
+            },
+            "url": "{{server}}/api/orderlines/1137"
+          },
+          "response": []
+        }
+      ],
+      "_postman_id": "dfe4018b-17bb-485a-b737-7ffcb49895bc"
+    },
+    {
+      "name": "Login and get bearer token",
+      "_postman_id": "6f983dba-c5c3-48b9-a35d-9362f3ac2268",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{server}}/api/login?email={{email}}&password={{password}}",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "login"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": "{{email}}",
+              "description": "The same email you use for our platform."
+            },
+            {
+              "key": "password",
+              "value": "{{password}}",
+              "description": "The password email you use for our platform."
+            }
+          ]
+        },
+        "description": "Use this endpoint to make the initial call with your email and password (same as on brainbi.net) and get your bearer token in response."
+      },
+      "response": []
+    },
+    {
+      "name": "Logout",
+      "_postman_id": "dcd47cf0-7fef-4b31-a282-5a4392f228b6",
+      "protocolProfileBehavior": {
+        "disableBodyPruning": true
+      },
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Accept",
+            "value": "application/json",
+            "type": "text"
+          }
+        ],
+        "url": {
+          "raw": "{{server}}/api/logout?email={{email}}",
+          "host": [
+            "{{server}}"
+          ],
+          "path": [
+            "api",
+            "logout"
+          ],
+          "query": [
+            {
+              "key": "email",
+              "value": "{{email}}",
+              "description": "The same email you use for our platform."
+            }
+          ]
+        },
+        "description": "Once you are done, call this endpoint to lock your account!"
+      },
+      "response": []
+    }
+  ]
+}

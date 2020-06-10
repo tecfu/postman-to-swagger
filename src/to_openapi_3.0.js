@@ -1,3 +1,7 @@
+function clone(o) {
+  return JSON.parse(JSON.stringify(o));
+}
+
 module.exports = (collection, config) => {
 
   const output = {}
@@ -14,34 +18,14 @@ module.exports = (collection, config) => {
   output.info.version = (config.info && config.info.version) 
     ? config.info.version : "1.0.0"
   
-  // host
-  // output.host = (config.host) ? config.host : mostPopularHost(collection)
-  if (config.host) output.host = config.host
-
-  // basepath
-  if (config.basepath) output.basepath = config.basepath
-
-  // schemes
-  output.schemes = (config.schemes) ? config.schemes : ['https']
+  // servers
+  if (config.servers) output.servers = config.servers;
 
   // paths
   output.paths = getPaths(collection, config)
 
   return output
 }
-
-
-//const mostPopularHost = (collection) => {
-//  // get all hosts as array
-//  let paths = collection.item.map(object => object.item)
-//  return _.head(_(paths)
-//    .flatten()
-//    .map( path => path.request.url.host[0]) 
-//    .countBy()
-//    .entries()
-//    .maxBy(_.last))
-//}
-
 
 const getPaths = (collection, config) => {
   let result = {}
@@ -50,7 +34,8 @@ const getPaths = (collection, config) => {
     .map(grouping => grouping.item)
     .flat(1)
     .forEach(item =>  {
-      let path = `/${item.request.url.path.join('/')}`
+      if (!item || Object.keys(item) === 0) return;
+      let path = `/${(item.request.url.path || []).join('/')}`
         .replace(/{{/g,'{')
         .replace(/}}/g,'}')
       result[path] = result[path] || {}
@@ -91,7 +76,7 @@ const processReqHeader = (header, config) => {
   let result
   result = header.map(object => {
     // early exit if omitted
-    if(config.omit.headers.indexOf(object.key) !== -1) {
+    if (config.omit.headers.indexOf(object.key) !== -1) {
       return null
     }
     
@@ -99,7 +84,7 @@ const processReqHeader = (header, config) => {
     result.in = "header"
     result.name = object.key
     if (config.require_all.indexOf("headers") !== -1) result.required = true
-    result.type = "string"
+    result.schema = { type: "string" };
     return result
   }).filter( x => x)
   
@@ -110,7 +95,7 @@ const processReqHeader = (header, config) => {
 const processReqBody = (body, config) => {
   let result = {}
   let parsedBody, parsedBodyKeys
-  if(!body.raw) {
+  if (!body || !body.raw) {
     return []
   }
 
@@ -138,7 +123,7 @@ const processReqQuery = (url, config) => {
     let result = {}
     result.in = 'query'
     result.name = query.key
-    result.type = typeof query.value
+    result.schema = { type: typeof query.value };
     if (config.require_all.indexOf("query") !== -1) result.required = true
     return result
   })
@@ -149,7 +134,7 @@ const processReqQuery = (url, config) => {
 
 const processReqPath = (url, config) => {
   let result
-  if (url.path.length === 1) return []
+  if (!url.path || url.path.length === 1) return []
 
   // clone && remove first element because its never a slug
   let paths = url.path.slice(1)
@@ -159,8 +144,8 @@ const processReqPath = (url, config) => {
     let result = {}
     result.in = 'path'
     result.name = path.match(/{{(.*)}}/)[1]
-    result.type = typeof result.name
-    if (config.require_all.indexOf("path") !== -1) result.required = true
+    result.schema = { type: typeof result.name };
+    result.required = true
     
     return result
   }).filter( x => x)
@@ -208,7 +193,7 @@ const bodyItemToOpenAPI = (value, config) => {
 
 
 const getResponses = (responses, config) => { 
-  if (!responses.length) return config.responses
+  if (!responses.length) return clone(config.responses);
 
   let result = {}
   responses.forEach (response => {

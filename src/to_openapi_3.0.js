@@ -1,3 +1,6 @@
+const JSON5 = require('json5')
+
+
 function clone(o) {
   return JSON.parse(JSON.stringify(o));
 }
@@ -11,13 +14,13 @@ module.exports = (collection, config) => {
 
   // info object
   output.info = {}
-  output.info.title = (config.info && config.info.name) 
+  output.info.title = (config.info && config.info.name)
     ? config.info.name : (collection.info.name || "")
-  output.info.description = (config.info && config.info.description) 
+  output.info.description = (config.info && config.info.description)
     ? config.info.description : (collection.info.description || "No description")
-  output.info.version = (config.info && config.info.version) 
+  output.info.version = (config.info && config.info.version)
     ? config.info.version : "1.0.0"
-  
+
   // servers
   if (config.servers) output.servers = config.servers;
 
@@ -31,7 +34,7 @@ const getPaths = (collection, config) => {
   let result = {}
 
   let allItems = collection.item
-    .map(grouping => grouping.item)
+    .map(grouping => grouping.item?grouping.item:grouping)
     .flat(1)
     .forEach(item =>  {
       if (!item || Object.keys(item) === 0) return;
@@ -39,11 +42,11 @@ const getPaths = (collection, config) => {
         .replace(/{{/g,'{')
         .replace(/}}/g,'}')
       result[path] = result[path] || {}
-      
+
       // each method (GET, POST, PUT, DELETE) for path
       result[path][item.request.method.toLowerCase()] = {
 
-        summary: item.name, 
+        summary: item.name,
 
         // parameter types: [query, path, header, body, form]
         parameters: getParameters(
@@ -56,7 +59,7 @@ const getPaths = (collection, config) => {
         responses: getResponses(item.response, config)
       }
     })
-  
+
   return result
 }
 
@@ -67,7 +70,7 @@ const getParameters = (header, body, url, config) => {
   result.push(processReqBody(body, config))
   result.push(processReqPath(url, config))
   result.push(processReqQuery(url, config))
-  
+
   return result.flat(1)
 }
 
@@ -79,7 +82,7 @@ const processReqHeader = (header, config) => {
     if (config.omit.headers.indexOf(object.key) !== -1) {
       return null
     }
-    
+
     let result = {}
     result.in = "header"
     result.name = object.key
@@ -87,7 +90,7 @@ const processReqHeader = (header, config) => {
     result.schema = { type: "string" };
     return result
   }).filter( x => x)
-  
+
   return result
 }
 
@@ -100,7 +103,7 @@ const processReqBody = (body, config) => {
   }
 
   try {
-    parsedBody = JSON.parse(body.raw)
+    parsedBody = JSON5.parse(body.raw)
     parsedBodyKeys = Object.keys(parsedBody)
   }
   catch(err) {
@@ -146,7 +149,7 @@ const processReqPath = (url, config) => {
     result.name = path.match(/{{(.*)}}/)[1]
     result.schema = { type: typeof result.name };
     result.required = true
-    
+
     return result
   }).filter( x => x)
 
@@ -173,12 +176,15 @@ const bodyItemToOpenAPI = (value, config) => {
         type: "object",
         properties: {}
       }
-
-      Object.entries(value)
-        .forEach(arr => {result.properties[arr[0]] = bodyItemToOpenAPI(arr[1], config)})
+      if(value) {
+        Object.entries(value)
+            .forEach(arr => {result.properties[arr[0]] = bodyItemToOpenAPI(arr[1], config)})
+      }
       break
 
-    case("string" || "number"):
+    case "number":
+    case "string":
+    case "boolean":
       result = {
         type: type
       }
@@ -192,7 +198,7 @@ const bodyItemToOpenAPI = (value, config) => {
 }
 
 
-const getResponses = (responses, config) => { 
+const getResponses = (responses, config) => {
   if (!responses.length) return clone(config.responses);
 
   let result = {}

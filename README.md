@@ -72,7 +72,7 @@ const swaggerJson = p2s(postmanJson, {
 })
 
 //let output = JSON.stringify(swaggerJson, null, 2)
-let output = yaml.safeDump(swaggerJson)
+let output = yaml.dump(swaggerJson)
 
 // Save to file
 fs.writeFileSync(

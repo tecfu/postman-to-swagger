@@ -8,7 +8,7 @@
     "test": "test"
   },
   "dependencies": {
-    "json5": "^2.2.0"
+    "json5": "^2.2.2"
   },
   "devDependencies": {
     "chai": "^4.2.0",

@@ -4,7 +4,7 @@
   "description": "Convert Postman 2.1 collections to Swagger 2.0 or OpenAPI 3.0",
   "main": "src/index.js",
   "engines": {"node": ">=22.18"},
-  "scripts": {"test": "node --test"},
+  "scripts": {"test": "node --test test/converter.test.js"},
   "repository": {"type": "git", "url": "git+https://github.com/tecfu/postman-to-swagger.git"},
   "author": "tecfu",
   "license": "MIT",

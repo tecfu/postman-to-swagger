@@ -10,11 +10,70 @@ The converter preserves the CommonJS API while generating standards-shaped reque
 
 ## Installation
 
+### Library
+
+```sh
+npm install postman-to-swagger
+```
+
+To install directly from GitHub instead:
+
 ```sh
 npm install tecfu/postman-to-swagger
 ```
 
-## Usage
+### CLI
+
+Run the CLI without installing it globally:
+
+```sh
+npx postman-to-swagger collection.json openapi.json
+```
+
+Or install the command globally:
+
+```sh
+npm install -g postman-to-swagger
+```
+
+After a global install, the `postman-to-swagger` command is available on your PATH.
+
+## CLI usage
+
+```sh
+postman-to-swagger <input.json> [output.json] [options]
+```
+
+If no output file is supplied, the converted JSON is written to stdout. Use `-` for stdin or stdout.
+
+Options:
+
+| Option | Description |
+| --- | --- |
+| `-t, --target <spec>` | `openapi3.0` (default) or `swagger2.0`. |
+| `-o, --output <file>` | Write the converted document to a file. |
+| `--pretty` | Pretty-print JSON output (default). |
+| `--compact` | Emit compact JSON. |
+| `-h, --help` | Show CLI help. |
+| `-v, --version` | Show the installed CLI version. |
+
+Examples:
+
+```sh
+# OpenAPI 3 JSON to stdout
+postman-to-swagger collection.json
+
+# OpenAPI 3 JSON to a file
+postman-to-swagger collection.json openapi.json
+
+# Swagger 2.0
+postman-to-swagger collection.json -o swagger.json --target swagger2.0
+
+# Unix pipelines
+cat collection.json | postman-to-swagger - - --target openapi3.0
+```
+
+## Library usage
 
 ```js
 const p2s = require('postman-to-swagger')

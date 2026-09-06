@@ -61,7 +61,8 @@ function parseArgs(argv) {
         options.pretty = false
         break
       default:
-        if (arg.startsWith('-')) throw new Error(`Unknown option '${arg}'`)
+        // A lone '-' is the conventional stdin/stdout path, not an option.
+        if (arg !== '-' && arg.startsWith('-')) throw new Error(`Unknown option '${arg}'`)
         positional.push(arg)
     }
   }

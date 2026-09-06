@@ -31,9 +31,15 @@ test('converts an input file and selects the target spec', () => {
 })
 
 test('supports stdin/stdout and compact output', () => {
-  const input = require(fixture)
+  const input = {
+    info: { name: 'CLI stdin test' },
+    item: [{
+      name: 'Health',
+      request: { method: 'GET', url: { path: ['health'] } }
+    }]
+  }
   const result = run(['-', '-', '--target', 'openapi3.0', '--compact'], JSON.stringify(input))
-  assert.equal(result.status, 0)
+  assert.equal(result.status, 0, result.stderr)
   assert.equal(result.stderr, '')
   assert.equal(JSON.parse(result.stdout).openapi, '3.0.3')
   assert.ok(!result.stdout.includes('\n  '))

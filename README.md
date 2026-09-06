@@ -1,19 +1,12 @@
 # Postman to Swagger
 
-This project intends to output a valid `swagger.yaml` or `openapi.yaml` file from a Postman collection input.
+Convert Postman 2.1 collections into Swagger 2.0 or OpenAPI 3.0 documents.
 
-You can convert:
+The converter preserves the CommonJS API while generating standards-shaped request parameters and OpenAPI 3 `requestBody` objects. Nested Postman folders are traversed recursively.
 
-| INPUT | OUTPUT |
-|---|---|
-| [Postman 2.1](https://schema.getpostman.com/json/collection/latest/docs/index.html) (`PostmanCollection.json`) | [Swagger 2.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md) (`swagger.yaml`) <br/><br/>[OpenAPI 3.0](https://github.com/OAI/OpenAPI-Specification/blob/master/versions/3.0.3.md) (`openapi.yaml`)|
+## Requirements
 
-
-> Please Note:
-
-Postman schema doesn't quite match up 1-to-1 against Swagger/OpenAPI schema.
-So some target spec defaults are automatically implemented when absent in the source spec.
-
+- Node.js 22.18 or newer
 
 ## Installation
 
@@ -21,67 +14,49 @@ So some target spec defaults are automatically implemented when absent in the so
 npm install tecfu/postman-to-swagger
 ```
 
-## Options
-<a name="options_properties"></a>
-
-
-### Options: All Targets Specs ```object```
-
-
-| Param | Type | Description |
-| --- | --- | --- |
-| source_spec | <code>string</code> | default: "postman2.1". <br/> options: "postman2.1" |
-| target_spec | <code>string</code> | default: "openapi3.0". <br/> options: "swagger2.0", "openapi3.0" |
-| require_all | <code>array</code> | default: ["headers", "body", "query", "path"]  |
-| omit | <code>object</code> | default: {<br/>headers: ["Content-Type", "X-Requested-With"]<br/>} |
-| info | <code>object</code> | default: {} |
-| responses | <code>object</code> | default: {<br/>200: {<br/>description: "OK"<br/>}<br/>} |
-
-
-
-### Options: Swagger 2.x ```object```
-
-| Param | Type | Description |
-| --- | --- | --- |
-| host | <code>string</code> | default: '' <br/> Note: Only applies to Swagger 2.0 output |
-| basepath | <code>string</code> | default: '' <br/> Note: Only applies to Swagger 2.0 output |
-| schemes | <code>string</code> | default: '' <br/> Note: Only applies to Swagger 2.0 output |
-
-
-
-### Options: OpenAPI 3.x ```object```
-
-| Param | Type | Description |
-| --- | --- | --- |
-| servers | <code>array</code> | default: []  <br/> Note: Only applies to OpenAPI 3.0 output |
-
-
-
-## Example
+## Usage
 
 ```js
 const p2s = require('postman-to-swagger')
-const yaml = require('js-yaml')
-const fs = require('fs')
-const postmanJson = require('./postman_collection.json')
-const swaggerJson = p2s(postmanJson, {
-  target_spec: "swagger2.0",
-  info: {
-    version: 'v1'
-  }
+const yaml = require('yaml')
+const fs = require('node:fs')
+const postmanJson = JSON.parse(fs.readFileSync('./postman_collection.json', 'utf8'))
+
+const openapi = p2s(postmanJson, {
+  target_spec: 'openapi3.0',
+  info: { version: '1.0.0' }
 })
 
-//let output = JSON.stringify(swaggerJson, null, 2)
-let output = yaml.dump(swaggerJson)
-
-// Save to file
-fs.writeFileSync(
-  'swagger.yaml',
-  output,
-  'utf8'
-)
+fs.writeFileSync('openapi.yaml', yaml.stringify(openapi), 'utf8')
 ```
 
+For Swagger 2.0, set `target_spec: 'swagger2.0'`. Swagger 2.0 request bodies are emitted as `in: body` parameters; OpenAPI 3 request bodies use `requestBody.content` as required by the OpenAPI 3 specification.
+
+## Options
+
+| Option | Default | Description |
+| --- | --- | --- |
+| `source_spec` | `postman2.1` | Supported Postman source schema. |
+| `target_spec` | `openapi3.0` | `swagger2.0` or `openapi3.0`. |
+| `require_all` | `['headers', 'body', 'query', 'path']` | Marks supported request components as required. |
+| `omit.headers` | `['Content-Type', 'X-Requested-With']` | Headers excluded from generated parameters. Matching is case-insensitive. |
+| `info` | `{}` | Values merged into the generated `info` object. |
+| `responses` | `{ 200: { description: 'OK' } }` | Default response map when a request has no response examples. |
+| `host` | `null` | Swagger 2.0 host. |
+| `basepath` | `null` | Swagger 2.0 base path. |
+| `schemes` | `null` | Swagger 2.0 schemes; defaults to `https`. |
+| `servers` | `null` | OpenAPI 3 servers. |
+
+Raw JSON request bodies are parsed with JSON5 and recursively converted into object, array, string, boolean, number, and integer schemas. Other Postman body modes are currently left unmodeled.
+
+## Development
+
+```sh
+npm install
+npm test
+```
+
+The test suite uses Node's built-in `node:test` runner and runs in GitHub Actions against Node.js 22, 24, and 26.
 
 ## License
 

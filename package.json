@@ -12,7 +12,7 @@
     "README.md"
   ],
   "engines": {"node": ">=22.18"},
-  "scripts": {"test": "node --test test/converter.test.js"},
+  "scripts": {"test": "node --test test/converter.test.js test/cli.test.js"},
   "repository": {"type": "git", "url": "git+https://github.com/tecfu/postman-to-swagger.git"},
   "author": "tecfu",
   "license": "MIT",

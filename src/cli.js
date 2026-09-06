@@ -75,9 +75,17 @@ function parseArgs(argv) {
   return options
 }
 
+const MAX_INPUT_BYTES = 25 * 1024 * 1024 // 25MB guard against memory exhaustion
+
 function readInput(input) {
-  if (!input || input === '-') return fs.readFileSync(0, 'utf8')
-  return fs.readFileSync(path.resolve(input), 'utf8')
+  if (!input || input === '-') {
+    const data = fs.readFileSync(0, 'utf8')
+    if (Buffer.byteLength(data, 'utf8') > MAX_INPUT_BYTES) throw new Error('Input exceeds maximum allowed size')
+    return data
+  }
+  const resolved = path.resolve(input)
+  if (fs.statSync(resolved).size > MAX_INPUT_BYTES) throw new Error('Input exceeds maximum allowed size')
+  return fs.readFileSync(resolved, 'utf8')
 }
 
 function writeOutput(output, destination) {
